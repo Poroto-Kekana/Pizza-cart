@@ -6,85 +6,176 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap">
-    <link rel="stylesheet" href="style.CSS">
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="simple-grid.css">
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <title>Kiddies Pizza</title>
 </head>
 <body>
-    <div class="body">
+    <div class="container" x-data="{ cart: false, largeTotal: 0.00, mediumTotal: 0.00, smallTotal: 0.00, cartTotal: 0.00 }">
 
-       <div class="header"><h1>PizzaHub kids Menu</h1></div>
+        <div class="row"> 
 
-        <div class="pizzas">
+            <div>
 
-            <div class="pizza mediumpizza">
+                <button x-on:click="cart=true" style="height:50px;width:50px"><Strong>Open<img style="width: 40%" src="Images/cart.jpg" alt=""></strong></button>
+
+                <a href=""><span class="Qty"><strong>0</strong></span></a>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div style="background-color: orangered ;"><h1 style="text-align: center ;">Welcome to your Cart...</h1></div>
+
+        </div>   
+
+
+        <div class="row" x-show="cart">
+
+            <div class="row">
+
+                <button x-on:click="cart=false" style="height:50px;width:50px"><strong>Close<img style="width: 40%" src="Images/cart.jpg" alt=""></strong></button>
+    
+            </div>
+
+            <div col-6>
+                <table>
+
+                    <tr>
+                        <td>Medium margeritha pizza</td>
+                        <td><button class="addcart">+</button> <span countqty> 0 </span> <button class="subtractcart">-</button></td>
+                        <td x-text="mediumTotal"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Large margeritha pizza</th>
+                        <th><button class="addcart">+</button><span countqty> 0 </span> <button class="subtractcart">-</button></th>
+                        <th x-text="largeTotal"></th>
+                    </tr>
+
+                    <tr>
+                        <th>Small margeritha pizza</th>
+                        <th><button class="addcart">+</button> <span countqty> 0 </span> <button class="subtractcart">-</button></th>
+                        <th x-text="smallTotal"></th>
+                    </tr>
+
+                    <tr>
+                        <th>Total</th>
+                        <th class="totalqty">0</th>
+                        <th x-text="cartTotal"></th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <div style="background-color:aqua" class="message">
+                                <span>Message...</span>
+                            </div>
+                            <div>
+                                <span>Payment Amount...</span>
+                            </div>
+                            
+                            <span>counter</span>
+                        </th> 
+                        <th>
+                            <img style="width:15%;" src="Images/image 1 (1).png" alt="">
+                        </th>
+                        <th>
+                            <button style="height:50px;width:50px" ><img style="width: 35%;" src="Images/cart1.png" alt=""><span>Pay</span></button>
+                        </th>
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+       <div class="header" style="background-color: orangered ;"><h1 style="text-align: center ;">PizzaHub kiddies Menu</h1></div>
+
+        <div class="row" style="background-color: aqua;">
+
+            <div class="col-4">
                 
-                <img src="Images/image 1 (1).png" alt="">
+                <img style="width: 100%;" src="Images/image 1 (1).png" alt="">
                 <ul>
-                        <div class="size">
+                    <div class="row">
+                        <div class="col-6">
                             <li>Medium Pizza</li>
-                            <button class="order">BUY</button>
+                            <button class="buy order" x-on:click="mediumTotal += 78.99">BUY</button>
                         </div>
 
-                        <div class="price">
+                        <div class="col-3">
                             <li>R78.99</li>
                         </div>
+                    </div>
 
-                        <div class="description">
+                    <div class="row">
+                        <div class="col-12">
                             <li>medium margeritha pizza with 3 toppings max. 2 or less meat topping. 3 or less other toppings.</li>
                         </div>
+                    </div>
                 </ul>
 
             </div>
 
-            <div class="pizza largepizza">
+            <div class="col-4">
                 
-                <img src="Images/image 1 (2).png" alt="">
+                <img style="width: 100%;" src="Images/image 1 (2).png" alt="">
                 <ul>
-                        <div class="size">
+                    <div class="row">
+                        <div class="col-6">
                             <li>Large Pizza</li>
-                            <button class="order">BUY</button>
+                            <button class="buy order" x-on:click="largeTotal += 180.99">BUY</button>
                         </div>
 
-                        <div class="price">
+                        <div class="col-3">
                             <li>R180.99</li>
                         </div>
+                    </div>
 
-                        <div class="description">
+                    <div class="row">
+                        <div class="col-12">
                             <li>large margeritha pizza with 3 toppings max. 3 meat toppings max. 3 or less other toppings.</li>
                         </div>
+                    </div>
                 </ul>
                 
             </div>
 
-            <div class="pizza smallpizza">
+            <div class="col-4">
 
-                <img src="Images/image 1 (3).png" alt="">
+                <img style="width: 100%;" src="Images/image 1 (3).png" alt="">
                 <ul>
-                        <div class="size">
+                    <div class="row">
+                        <div class="col-6">
                             <li>Small Pizza</li>
-                            <button class="order">BUY</button>
+                            <button class="buy order" x-on:click="smallTotal += 38.99">BUY</button>
                         </div>
 
-                        <div class="price">
+                        <div class="col-3">
                             <li>R38.99</li>
                         </div>
-                        
-                        <div class="description">
-                            <li>small pizza with 3 toppings
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <li>small margeritha pizza with 3 toppings
                                 1 meat topping.
                                 3 or less other toppings.
                             </li>
                         </div>
-
+                    </div>
                         
                 </ul>
                 
             </div>
         </div>
-     
 
-    <footer class="bottom">
-        <div class="pizza contacts">
+    <footer style="background-color: orange;" class="row">
+        <div class="col-6">
             <ul>
             <li>Contact us at: (015)-491-5263 twitter</li> 
             <li>/fb</li>
@@ -92,14 +183,15 @@
             <li>@perfectpizza</li>
             </ul>
         </div>
-        <div class="pizza address">
+        <div class="col-6">
             <ul>
                 <li>Pizza Palace</li>
                 <li>Pretori Road</li>
                 <li>Jubilee Mall</li>
             </ul> 
         </div>
-    </footer>
+    </footer> 
+
 </body>
 <!-- <script src="counter.js"></script> -->
 <!-- <script src="index.js"></script> -->
