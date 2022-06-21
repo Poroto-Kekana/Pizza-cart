@@ -18,50 +18,75 @@
         largeTotal: 0.00, 
         largeQty: 0, 
         smallTotal: 0.00, 
-        smallQty: 0, 
+        smallQty: 0,
+        payNow: false, 
+        paymentAmount: 0,
+        paymentMessage: '',
 
         cartTotal() {
             return this.largeTotal + this.mediumTotal + this.smallTotal
         },
 
         buyMediumPizza() {
-            this.mediumTotal += 78.99; 
-            this.mediumQty +=1;
+            this.mediumTotal += 78.99
+            this.mediumQty +=1
         },
 
         clearMediumPizza() {
             if(this.mediumQty > 0) {
-                this.mediumTotal -= 78.99; 
-                this.mediumQty -=1;
+                this.mediumTotal -= 78.99
+                this.mediumQty -=1
             } 
         },
 
         buyLargePizza() {
-            this.largeTotal += 180.99;
-            this.largeQty +=1;
+            this.largeTotal += 180.99
+            this.largeQty +=1
         },
 
         clearLargePizza() {
             if(this.largeQty > 0) {
-                this.largeTotal -= 180.99; 
-                this.largeQty -=1;
+                this.largeTotal -= 180.99
+                this.largeQty -=1
             }
         },
 
         buySmallPizza() {
-            this.smallTotal += 38.99;
-            this.smallQty +=1;
+            this.smallTotal += 38.99
+            this.smallQty +=1
         },
 
         clearSmallPizza() {
             if(this.smallQty > 0) {
-                this.smallTotal -= 38.99; 
-                this.smallQty -=1;
+                this.smallTotal -= 38.99
+                this.smallQty -=1
             }   
         },
         totalQty() {
-            return this.mediumQty + this.largeQty + this.smallQty
+            return this.mediumQty + this.largeQty + this.smallQty;
+        },
+
+        makePayment () {
+            if (this.paymentAmount === 0 || !this.paymentAmount ) {
+                this.paymentMessage = 'No Amount Entered!'
+            }
+            if (this.paymentAmount >= this.cartTotal () ) {
+                this.paymentMessage = 'Payment Successful!'
+                this.clearcart ();
+            } 
+            else {
+                this.paymentMessage = 'Insuffienct Amount!'
+            }
+        },
+        clearCart () {
+            this.mediumTotal = 0.00; 
+            this.mediumQty = 0; 
+            this.largeTotal = 0.00; 
+            this.largeQty = 0; 
+            this.smallTotal = 0.00;
+            this.smallQty = 0;
         }
+
     }">
 
         <div class="row"> 
@@ -85,14 +110,14 @@
     
             </div>
 
-            <div class="row">
+            <div class="row" x-show="cartTotal() > 0">
 
                 <button x-on:click="cart=false" style="height:50px;width:50px"><strong>Close<img style="width: 40%" src="Images/cart.jpg" alt=""></strong></button>
     
             </div>
 
             <div col-6>
-                <table>
+                <table x-show="cartTotal() > 0">
 
                     <tr>
                         <td>Medium margeritha pizza</td>
@@ -127,22 +152,22 @@
                     </tr>
 
                     <tr>
-                        <th>
-                            <div style="background-color:aqua" class="message">
-                                <span>Message...</span>
-                            </div>
-                            <div>
-                                <span>Payment Amount...</span>
-                            </div>
-                            
-                            <span>counter</span>
-                        </th> 
-                        <th>
+                        <td>
+                            <div x-show="payNow">
+                                    <div style="background-color:aqua; width: 95.5%;" class="message" x-text="paymentMessage"></div>
+                                <div>
+                                    <label for="">Payment Amount......</label>
+                                    R<input class="input" type="number" placeholder="Payment amount" x-model="paymentAmount">
+                                    <button x-on:click="makePayment()" style="height:50px;width:50px" ><img style="width: 25%;" src="Images/cart1.png" alt=""><span>Pay Now</span></button>
+                                </div>
+                            </div>  
+                        </td> 
+                        <td>
                             <img style="width:25%;" src="Images/image 1 (1).png" alt="">
-                        </th>
-                        <th>
-                            <button style="height:50px;width:50px" ><img style="width: 35%;" src="Images/cart1.png" alt=""><span>Pay</span></button>
-                        </th>
+                        </td>
+                        <td>
+                            <button x-show="!payNow" x-on:click="payNow=true" style="height:50px;width:50px" ><img style="width: 35%;" src="Images/cart1.png" alt=""><span>Pay</span></button>
+                        </td>
                     </tr>
                     
                 </table>
@@ -173,7 +198,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <li>medium margeritha pizza with 3 toppings max. 2 or less meat topping. 3 or less other toppings.</li>
+                                <li>Medium Margeritha Pizza with 3 toppings max. 2 or less meat topping. 3 or less other toppings.</li>
                             </div>
                         </div>
                     </ul>
@@ -197,7 +222,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <li>large margeritha pizza with 3 toppings max. 3 meat toppings max. 3 or less other toppings.</li>
+                                <li>Large Margeritha Pizza with 3 toppings max. 3 meat toppings max. 3 or less other toppings.</li>
                             </div>
                         </div>
                     </ul>
@@ -221,7 +246,7 @@
                         
                         <div class="row">
                             <div class="col-12">
-                                <li>small margeritha pizza with 3 toppings
+                                <li>Small Margeritha Pizza with 3 toppings
                                     1 meat topping.
                                     3 or less other toppings.
                                 </li>
