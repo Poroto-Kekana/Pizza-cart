@@ -11,7 +11,7 @@
     <title>Kiddies Pizza</title>
 </head>
 <body>
-    <div class="container" x-data="{ 
+    <div style="background-color: yellow ;" class="container" x-data="{ 
         cart: false,  
         mediumTotal: 0.00, 
         mediumQty: 0, 
@@ -72,12 +72,17 @@
             }
             if (this.paymentAmount >= this.cartTotal () ) {
                 this.paymentMessage = 'Payment Successful!'
-                this.clearcart ();
+
+                setTimeout(() => {
+                    this.payNow = false
+                    this.clearCart() 
+                },4000);
             } 
             else {
                 this.paymentMessage = 'Insuffienct Amount!'
             }
         },
+
         clearCart () {
             this.mediumTotal = 0.00; 
             this.mediumQty = 0; 
@@ -110,41 +115,41 @@
     
             </div>
 
-            <div class="row" x-show="cartTotal() > 0">
+            <div class="row">
 
                 <button x-on:click="cart=false" style="height:50px;width:50px"><strong>Close<img style="width: 40%" src="Images/cart.jpg" alt=""></strong></button>
     
             </div>
 
             <div col-6>
-                <table x-show="cartTotal() > 0">
+                <table>
 
-                    <tr>
-                        <td>Medium margeritha pizza</td>
+                    <tr x-show="mediumQty > 0">
+                        <th>Medium margeritha pizza</th>
                         <td><button class="addcart" x-on:click="buyMediumPizza()">+</button> <span x-text="mediumQty"> 0 </span> <button class="subtractcart" x-on:click="clearMediumPizza()">-</button></td>
                         <td>
                             R<span x-text="mediumTotal.toFixed(2)"></span>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Large margeritha pizza</td>
+                    <tr x-show="largeQty > 0">
+                        <th>Large margeritha pizza</th>
                         <td><button class="addcart"  x-on:click="buyLargePizza()">+</button> <span x-text="largeQty"> 0 </span> <button class="subtractcart" x-on:click="clearLargePizza()">-</button></td>
                         <td>
                             R<span x-text="largeTotal.toFixed(2)"></span>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Small margeritha pizza</td>
+                    <tr x-show="smallQty > 0">
+                        <th>Small margeritha pizza</th>
                         <td><button class="addcart" x-on:click="buySmallPizza()">+</button> <span x-text="smallQty"> 0 </span> <button class="subtractcart" x-on:click="clearSmallPizza()">-</button></td>
                         <td>
                             R<span x-text="smallTotal.toFixed(2)"></span>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Total</td>
+                    <tr x-show="cartTotal() > 0">
+                        <th>Total</th>
                         <td class="quantity" x-text="totalQty()">0</td>
                         <td >
                             R<span x-text="cartTotal().toFixed(2)"></span>
@@ -152,9 +157,9 @@
                     </tr>
 
                     <tr>
-                        <td>
+                        <td x-show="cartTotal() > 0">
                             <div x-show="payNow">
-                                    <div style="background-color:aqua; width: 95.5%;" class="message" x-text="paymentMessage"></div>
+                                    <div style="background-color:aqua; width: 95.5%; text-align: justify; padding: 1em 0em 1em 0em;" class="message" x-text="paymentMessage"></div>
                                 <div>
                                     <label for="">Payment Amount......</label>
                                     R<input class="input" type="number" placeholder="Payment amount" x-model="paymentAmount">
@@ -162,10 +167,10 @@
                                 </div>
                             </div>  
                         </td> 
-                        <td>
+                        <td x-show="cartTotal() > 0">
                             <img style="width:25%;" src="Images/image 1 (1).png" alt="">
                         </td>
-                        <td>
+                        <td x-show="cartTotal() > 0">
                             <button x-show="!payNow" x-on:click="payNow=true" style="height:50px;width:50px" ><img style="width: 35%;" src="Images/cart1.png" alt=""><span>Pay</span></button>
                         </td>
                     </tr>
